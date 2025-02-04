@@ -1,0 +1,17 @@
+services:
+  mysql:
+    container_name: mbt
+    cap_add:
+      - SYS_NICE
+    build:
+      dockerfile: Dockerfile.mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+    ports:
+      - 3306:3306
+    volumes:
+      - ${LOCALTIME:-/etc/localtime}:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+      - ./data:/var/lib/mysql:delegated
+      - ~/work/share:/share:cached

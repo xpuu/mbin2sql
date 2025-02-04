@@ -1,0 +1,8 @@
+[mysqld]
+sql-mode=STRICT_TRANS_TABLES,ALLOW_INVALID_DATES
+max-allowed-packet=256M
+log-bin
+binlog-expire-logs-seconds=86400
+
+[mysql]
+comments

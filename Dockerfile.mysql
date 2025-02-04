@@ -1,0 +1,11 @@
+FROM mysql:8.0-debian
+
+COPY ./mysql-entrypoint.sh /
+
+RUN apt-get update && apt-get -y install vim-tiny procps ripgrep && \
+  apt-get clean && ln -s /etc/alternatives/vi /usr/bin/vim && \
+  chmod +x /mysql-entrypoint.sh
+
+ADD schema.sql /docker-entrypoint-initdb.d
+
+ENTRYPOINT ["/mysql-entrypoint.sh"]
