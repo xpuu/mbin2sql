@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 """
-Example Python script for MySQL binlog processing.
+Python script for MySQL binlog processing.
 
 Usage:
-    python3 mysql_binlog_processor.py <binlog_file>
+    python3 parse-binlog.py [-v] <binlog_file>
 """
 
 import sys
@@ -27,7 +27,7 @@ class QueryItem:
 
 def usage():
     """Print the usage string."""
-    print("Usage: python3 mysql_binlog_processor.py [-v] <binlog_file>")
+    print("Usage: python3 parse-binlog.py [-v] <binlog_file>")
 
 def get_column_map(connection, table_name):
     """
@@ -132,7 +132,7 @@ def parse_binlog_file(binlog_file, verbose=False):
 
     return queries
 
-def transform_queries(queries, connection):
+def replace_placeholders(queries, connection):
     """
     Replace placeholder markers (@1, @2, etc.) in each query with the corresponding
     column names, using a cache of column maps so we only query each table once.
@@ -190,7 +190,7 @@ def main():
             print(f"Connected to MySQL at {MYSQL_HOST}:{MYSQL_PORT} as {MYSQL_USER}.")
 
         queries = parse_binlog_file(args.binlog_file, args.verbose)
-        transform_queries(queries, connection)
+        replace_placeholders(queries, connection)
         output_queries(queries, args.verbose)
 
         connection.close()
