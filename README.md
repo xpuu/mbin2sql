@@ -24,7 +24,7 @@ parse-binlog.py pseudo.sql
 
 MySQL server setup:
 - If needed, add user for the script on the server, e.g. CREATE USER 'root'@'some.remote.server' identified by 'secret';
-- Ensure all privileges so DESCRIBE query can run: GRANT ALL PRIVILEGES ON *.* TO 'root'@'some.remote.server';
+- Ensure all privileges so DESCRIBE query can run: GRANT ALL PRIVILEGES ON \*.\* TO 'root'@'some.remote.server';
 
 Python script setup:
 - Put MySQL config data at the top of the file
